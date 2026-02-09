@@ -1,1 +1,1 @@
-This is just a test
+First serious project
