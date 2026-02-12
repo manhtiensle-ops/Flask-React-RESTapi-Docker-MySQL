@@ -6,8 +6,10 @@ webapp = Flask(__name__)
 api = Api(webapp)
 
 class Hello(Resource):
-    def get(self):
-        return {"data": "hello"}
-api.add_resource(Hello, "/hello")
+    def get(self, name, age):
+        return {"data": "hello",name:f"age: {age}"}
+    def post(self):
+        return {"data":"POst"}
+api.add_resource(Hello, "/hello/<string:name>/<string:age>")
 
 webapp.run(debug=True)
