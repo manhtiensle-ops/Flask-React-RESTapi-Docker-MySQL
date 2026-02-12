@@ -1,12 +1,6 @@
-def inputfunc(name):
-    print(name)
-def otherInputfunc(a):
-    return int(a)
+import requests
 
-def funcInFunc(otherfunc):
-    return otherfunc
-
-print(funcInFunc(inputfunc("Peter")))
-print(funcInFunc(otherInputfunc(1)))
-
+BASE = "http://127.0.0.1:5000"
+Reponse = requests.get(BASE + "/hello")
+print(Reponse.json())
         

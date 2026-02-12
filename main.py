@@ -1,17 +1,13 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
+from flask_restful import Api, Resource
+
 
 webapp = Flask(__name__)
+api = Api(webapp)
 
-@webapp.route('/')
-def index():
-    return "Test"
+class Hello(Resource):
+    def get(self):
+        return {"data": "hello"}
+api.add_resource(Hello, "/hello")
 
-@webapp.route('/<name>')
-def user(name):
-    return f"hello {name}"
-
-@webapp.route('/admin')
-def admin():
-    return redirect(url_for('user',name = 'admin!'))
-
-webapp.run(host = "0.0.0.0", port =80)
+webapp.run(debug=True)
