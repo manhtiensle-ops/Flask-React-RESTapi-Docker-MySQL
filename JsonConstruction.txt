@@ -2,6 +2,7 @@
     "status": "success | error",
     "code": 200, 
     "message": "Thông báo ngắn gọn",
-    "data": {}, // Chứa dữ liệu trả về (Object hoặc Array)
-    "errors": [] // Chứa chi tiết lỗi nếu có (phục vụ Debug)
+
+    "data": {"gotoURL" : url}, 
+    "errors": [] 
 }

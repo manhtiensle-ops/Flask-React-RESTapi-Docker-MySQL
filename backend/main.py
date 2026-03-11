@@ -22,39 +22,71 @@ webapp = Flask(__name__)
 CORS(webapp)
 api = Api(webapp)
 
-# Route truyền thống trả về chuỗi văn bản
-@webapp.route("/home/<username>")
-def home(username):
-    return f"hello {username}"
-
 @webapp.route("/")
 def index():
     return jsonify({
-        "action": "redirect",
-        "target": "login.html",
-        "message": "Authentication required. Please move to login page."
+        "status": "success",
+        "message": "Authentication required. Please move to login page.",
+        "data": {"gotoURL": "index.html"},
+        "error": [],
     }), 200
 
-    
-
-class Login(Resource):
-    def post(self):
-        data = request.get_json()
-        if not data: return {"message": "No data"}, 400
+# class Login(Resource):
+#     def get(self):
+#         return jsonify({
+#             "status": "success",
+#             "message": "go in /login.",
+#             "data":{"gotoURL":"login.html"},
+#             "error":[],
+#         })
+#     def post(self):
+#         data = request.get_json()
+#         if not data: return {"message": "No data"}, 400
         
-        username = data.get('username')
-        password = data.get('password')
+#         username = data.get('username')
+#         password = data.get('password')
 
-        if username == "admin" and password == "123":
-            return {
+#         if username == "admin" and password == "123":
+#             return {
+#                 "status": "success",
+#                 "message": "you're admin.",
+#                 "data":{"gotoURL":"admin.html"},
+#                 "error":[],
+#             }, 200
+        
+#         return {"status": "error", "message": "Invalid credentials"}, 401
+# api.add_resource(Login, "/login")
+@webapp.route("/AI", methods=['POST'])
+def AI():
+    data = request.get_json()
+    return jsonify(data)
+@webapp.route("/login", methods= ['GET'])
+def ReturnLoginPage():
+    return jsonify({
+            "status": "success",
+            "message": "go in /login.",
+            "data":{"gotoURL":"login.html"},
+            "error":[],
+        })
+
+@webapp.route("/login", methods = ['POST'])
+def ExcuteLogin():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    if(username == "admin" and str(password) == '123'):
+        return jsonify({
                 "status": "success",
-                # SỬA Ở ĐÂY: Trả về tên file HTML ở thư mục frontend
-                "redirect_url": "admin.html" 
-            }, 200
-        
-        return {"status": "error", "message": "Invalid credentials"}, 401
+                "message": "you're admin.",
+                "data":{"gotoURL":"admin.html"},
+                "error":[],
+            }), 200
 
-api.add_resource(Login, "/login")
+    return jsonify({"status": "false",
+                    "data": {"gotoURL": "login.html"} }), 401
+
+
 
 if __name__ == "__main__":
-    webapp.run(debug=True, port=5000)
+    webapp.run(host="0.0.0.0",debug=True, port=5000)
