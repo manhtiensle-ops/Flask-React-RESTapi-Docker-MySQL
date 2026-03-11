@@ -1,22 +1,10 @@
-# from flask import Flask, redirect, url_for, render_template
-# from flask_restful import Api, Resource
-
-
-# webapp = Flask(__name__)
-# api = Api(webapp)
-
-# class Hello(Resource):
-#     def get(self, name, age):
-#         return {"data": "hello",name:f"age: {age}"}
-#     def post(self):
-#         return {"data":"POst"}
-# api.add_resource(Hello, "/hello/<string:name>/<string:age>")
-
-# if __name__ == "__main__":
-#     webapp.run(debug=True)
-from flask import Flask, request, jsonify, redirect, url_for
+from flask import Flask, request, jsonify, g, redirect, url_for
 from flask_restful import Api, Resource
 from flask_cors import CORS
+import mysql.connector
+from mysql.connector import pooling
+
+
 
 webapp = Flask(__name__)
 CORS(webapp)
@@ -24,69 +12,65 @@ api = Api(webapp)
 
 @webapp.route("/")
 def index():
-    return jsonify({
-        "status": "success",
-        "message": "Authentication required. Please move to login page.",
-        "data": {"gotoURL": "index.html"},
-        "error": [],
-    }), 200
+    return "hell1o 111wsorddaaqqqqaaad"
 
-# class Login(Resource):
-#     def get(self):
-#         return jsonify({
-#             "status": "success",
-#             "message": "go in /login.",
-#             "data":{"gotoURL":"login.html"},
-#             "error":[],
-#         })
-#     def post(self):
-#         data = request.get_json()
-#         if not data: return {"message": "No data"}, 400
-        
-#         username = data.get('username')
-#         password = data.get('password')
 
-#         if username == "admin" and password == "123":
-#             return {
-#                 "status": "success",
-#                 "message": "you're admin.",
-#                 "data":{"gotoURL":"admin.html"},
-#                 "error":[],
-#             }, 200
-        
-#         return {"status": "error", "message": "Invalid credentials"}, 401
-# api.add_resource(Login, "/login")
-@webapp.route("/AI", methods=['POST'])
-def AI():
-    data = request.get_json()
-    return jsonify(data)
-@webapp.route("/login", methods= ['GET'])
-def ReturnLoginPage():
-    return jsonify({
+class Login(Resource):
+    def get(self):
+        return jsonify({
             "status": "success",
             "message": "go in /login.",
             "data":{"gotoURL":"login.html"},
             "error":[],
         })
+    def post(self):
+        data = request.get_json()
+        if not data: return {"message": "No data"}, 400
+        
+        username = data.get('username')
+        password = data.get('password')
+        cnx = mysql.connector.connect(host='db',
+                                      username='root',
+                                      password='password',
+                                      database='LOGIN'
+        )
+        cursor = cnx.cursor(dictionary=True)
+        cursor.execute("SELECT username,password FROM ACCOUNT WHERE username = %s AND password = %s;",(username,password))
+        user = cursor.fetchone()
+        if user:
+            return {"status":"ok"},200
+        return {"status": "error", "message": "Invalid credentials"}, 401
+api.add_resource(Login, "/login")
 
-@webapp.route("/login", methods = ['POST'])
-def ExcuteLogin():
+
+
+class TestDataBase(Resource):
+    def get(self):
+        u = 'hater'
+        p = '123456'
+        cnx = mysql.connector.connect(
+            host='db',
+            user='root',
+            password='password',
+            database='LOGIN'
+        )
+        cursor = cnx.cursor(dictionary=True)
+        
+        cursor.execute("SELECT username,password FROM ACCOUNT WHERE username = %s AND password = %s;",(u,p))
+        user = cursor.fetchone()
+        cursor.close()
+        cnx.close()
+        return user
+        
+api.add_resource(TestDataBase,"/data")
+
+
+
+
+
+
+
+@webapp.route("/AI", methods=['POST'])
+def AI():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-
-    if(username == "admin" and str(password) == '123'):
-        return jsonify({
-                "status": "success",
-                "message": "you're admin.",
-                "data":{"gotoURL":"admin.html"},
-                "error":[],
-            }), 200
-
-    return jsonify({"status": "false",
-                    "data": {"gotoURL": "login.html"} }), 401
-
-
-
-if __name__ == "__main__":
-    webapp.run(host="0.0.0.0",debug=True, port=5000)
+    return jsonify(data)

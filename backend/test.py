@@ -1,11 +1,11 @@
 import requests
 
-BASE = "http://127.0.0.1:5000"
+BASE = "http://localhost:8000"
 payload = {
-    "username": "admin",
-    "password": 123
+    "username": "manhtien",
+    "password": "manhtien"
 }
-response = requests.post(BASE + "/AI", json=payload)
+response = requests.post(BASE + "/login", json=payload)
 
 
 print(response.json())
