@@ -3,3 +3,4 @@ flask-restful
 flask-sqlalchemy 
 flask-cors
 mysql-connector-python
+flask-jwt-extended[asymmetric_crypto]

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Surveillance System - Premium Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #020617;
+            --panel-bg: rgba(30, 41, 59, 0.7);
+            --accent-cyan: #22d3ee;
+            --accent-red: #ef4444;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Base Setup --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            padding: 30px;
+            background-image: radial-gradient(circle at top right, #1e1b4b, transparent);
+        }
+
+        /* --- Header Section --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-green);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 10px var(--accent-green); animation: pulse 2s infinite; }
+
+        /* --- Dashboard Grid --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* --- Reusable Glass Panel --- */
+        .glass-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- Main Feed Area --- */
+        .main-feed h3 { color: var(--text-dim); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .live-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--accent-red);
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: blink 1s infinite;
+        }
+        .status-label { margin-top: 20px; font-size: 15px; color: var(--text-dim); }
+        .status-label b { color: var(--accent-cyan); }
+
+        /* --- Sidebar & Cards --- */
+        .sidebar { display: flex; flex-direction: column; gap: 25px; }
+        .section-title { font-size: 14px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 15px; display: block; }
+        
+        .stranger-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .stranger-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-cyan);
+        }
+        .avatar-placeholder { width: 60px; height: 60px; background: #334155; border-radius: 12px; flex-shrink: 0; }
+        .card-info b { font-size: 15px; display: block; margin-bottom: 2px; }
+        .card-info span { font-size: 12px; color: var(--text-dim); }
+
+        /* --- Pill Button (THE MICRO-INTERACTION) --- */
+        .btn-tag {
+            margin-top: 8px;
+            background: var(--accent-cyan);
+            color: #083344;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 9999px; /* Pill shape */
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.2);
+        }
+        .btn-tag:hover {
+            transform: scale(1.15); /* Phình to */
+            background: #fff;
+            box-shadow: 0 0 25px rgba(34, 211, 238, 0.6); /* Glow hiệu ứng */
+        }
+
+        /* --- Stats Card --- */
+        .stat-row { display: flex; justify-content: space-between; margin-top: 10px; }
+        .stat-item span { font-size: 12px; color: var(--text-dim); display: block; }
+        .stat-item b { font-size: 28px; }
+
+        /* --- Animations --- */
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AI Surveillance System</h1>
+        <div class="status-badge">
+            <div class="dot"></div>
+            System Active: Recognizing...
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <div class="glass-panel main-feed">
+            <h3>Living Room - Main Camera</h3>
+            <div class="video-container">
+                <div class="live-overlay">● LIVE FEED - FACE RECOGNITION ACTIVE</div>
+                <img src="https://via.placeholder.com/1280x720/000/fff?text=CAMERA+FEED+LOADING..." style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;">
+            </div>
+            <p class="status-label">Trạng thái: Đang theo dõi đối tượng <b>Người Quen: Nguyễn Văn A</b></p>
+        </div>
+
+        <div class="sidebar">
+            <div class="glass-panel">
+                <span class="section-title">Phát hiện người lạ (Cần đánh nhãn)</span>
+                
+                <div class="stranger-card">
+                    <div class="avatar-placeholder"></div>
+                    <div class="card-info">
+                        <b>Đối tượng #4092</b>
+                        <span>Detected: 10:52 AM</span><br>
+                        <button class="btn-tag">ĐÁNH NHÃN</button>
+                    </div>
+                </div>
+
+                <div class="stranger-card">
+                    <div class="avatar-placeholder"></div>
+                    <div class="card-info">
+                        <b>Đối tượng #4088</b>
+                        <span>Detected: 09:15 AM</span><br>
+                        <button class="btn-tag">ĐÁNH NHÃN</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel">
+                <span class="section-title">Thống kê trong ngày</span>
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <span>Người quen</span>
+                        <b style="color: var(--accent-green);">12</b>
+                    </div>
+                    <div class="stat-item">
+                        <span>Người lạ</span>
+                        <b style="color: var(--accent-red);">02</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Middleware kiểm tra quyền truy cập ở tầng Frontend
+        document.addEventListener('DOMContentLoaded', () => {
+            // Logic thô sơ: Nếu không thấy trạng thái login, sút về index
+            // (Trong thực tế bạn sẽ check JWT ở đây)
+            console.log("🔒 Dashboard Secure Session Active");
+        });
+    </script>
+</body>
+</html>

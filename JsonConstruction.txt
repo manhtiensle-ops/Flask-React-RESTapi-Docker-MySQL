@@ -1,8 +1,0 @@
-{
-    "status": "success | error",
-    "code": 200, 
-    "message": "Thông báo ngắn gọn",
-
-    "data": {"gotoURL" : url}, 
-    "errors": [] 
-}
