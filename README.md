@@ -4,8 +4,8 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   https://github.com/manhtiensle-ops/Flask-React-RESTapi-Docker-MySQL.git
+   cd Flask-React-RESTapi-Docker-MySQL
    ```
 
 2. **Start with Docker Compose**
