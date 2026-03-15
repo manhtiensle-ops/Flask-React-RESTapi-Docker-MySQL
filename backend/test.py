@@ -5,8 +5,8 @@ payload = {
     "username": "manhtien",
     "password": "manhtien"
 }
+# File test.py
 response = requests.post(BASE + "/login", json=payload)
 
-
-print(response.json())
-        
+# In toàn bộ JSON trả về từ Server
+print(response.json()) 

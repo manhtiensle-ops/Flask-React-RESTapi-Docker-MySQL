@@ -9,6 +9,10 @@ services:
           path: ./frontend
           # Sửa lại target trỏ đúng vào dạ dày của Nginx
           target: /usr/share/nginx/html/
+        - action: sync
+          path: ./frontend/default.conf
+          
+          target: /etc/nginx/conf.d/default.conf
   backend:
     build: ./backend/
     ports:

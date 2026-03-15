@@ -13,7 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     msgElement.style.opacity = "0"; // Ẩn thông báo
 
     // Gửi HTTP POST Request tới Backend của bạn qua cổng 5000
-    fetch('http://localhost:8000/login', {
+    fetch('http://backend/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: u, password: p })
@@ -29,9 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
             msgElement.textContent = "Đăng nhập thành công! Đang chuyển hướng...";
             msgElement.style.opacity = "1"; // Hiện thông báo mượt mà
             // (Bạn có thể thêm logic chuyển hướng trang tại đây)
-            setTimeout(() => {
-            window.location.href = "controlpanel.html"; 
-    }       , 1);
+            
 
         } else {
             msgElement.style.color = "#ff8a80"; // Màu đỏ sáng cho nền tối

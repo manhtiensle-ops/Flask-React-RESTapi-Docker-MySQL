@@ -1,19 +1,17 @@
-import mysql.connector
-from mysql.connector import Error
-import time
+from flask import Flask
+from flask_restful import Api
+from flask_jwt_extended import JWTManager
+
+from api.loginapi import Login
+
+app = Flask(__name__)
+app.config.from_object(Config) # Load toàn bộ cấu hình từ class Config
+
+# Khởi tạo các module mở rộng
+api = Api(app)
+jwt = JWTManager(app) # Đối tượng này sẽ quản lý việc ký và kiểm tra token
+
+api.add_resource(Login, '/login')
 
 
-cnx=mysql.connector.connect(host='db',
-                            user='root',
-                            password='password',
-                            database='LOGIN',
-)
-cursor=cnx.cursor()
-cursor.execute("SELECT * FROM LOGIN;")
-tables=cursor.fetchall()
-cursor.close()
-
-print(tables)
-
-cnx.close()
-
+app.run(debug=True)
