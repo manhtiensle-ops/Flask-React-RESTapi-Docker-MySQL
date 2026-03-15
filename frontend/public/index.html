@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPEC - Research Laboratory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Cơ bản */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0f172a; /* Màu nền tối chuẩn tech */
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text; /* Thêm dòng chuẩn này vào đây */
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #3b82f6;
+        }
+
+        /* Nút Login với hiệu ứng đẹp */
+        .btn-login {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Hiệu ứng Hover (Lướt chuột qua) */
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+        }
+
+        /* Hiệu ứng Active (Khi click/nhấn vào) */
+        .btn-login:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Phần Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 70%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 span {
+            color: #3b82f6;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        /* Lưới các lĩnh vực nghiên cứu (Cards) */
+        .research-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 30px 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .card h3 {
+            color: #e2e8f0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Hiệu ứng thẻ nổi lên khi hover */
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Responsive cho điện thoại */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-top: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MPEC</div>
+        <nav>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Nghiên cứu</a></li>
+                <li><a href="#">Đội ngũ</a></li>
+                <li><a href="#">Công bố</a></li>
+            </ul>
+        </nav>
+        <button class="btn-login" id="login_btn">Login</button>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to <span>MPEC</span> Lab</h1>
+        <p>Trung tâm nghiên cứu tiên phong trong các lĩnh vực <strong>M</strong>achine Learning, <strong>P</strong>ositioning, <strong>E</strong>mbedded Systems, và <strong>C</strong>loud Computing.</p>
+        
+        <div class="research-areas">
+            <div class="card">
+                <h3>Machine Learning</h3>
+                <p>Nghiên cứu và phát triển các mô hình AI, Deep Learning ứng dụng trong thực tế.</p>
+            </div>
+            <div class="card">
+                <h3>Positioning</h3>
+                <p>Công nghệ định vị độ chính xác cao trong nhà và ngoài trời.</p>
+            </div>
+            <div class="card">
+                <h3>Embedded</h3>
+                <p>Thiết kế hệ thống nhúng, vi điều khiển và các thiết bị IoT thông minh.</p>
+            </div>
+            <div class="card">
+                <h3>Cloud Computing</h3>
+                <p>Giải pháp điện toán đám mây, lưu trữ và xử lý dữ liệu quy mô lớn.</p>
+            </div>
+        </div>
+    </section>
+    <script src="loginbtn.js"></script>
+</body>
+</html>

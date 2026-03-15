@@ -1,9 +1,9 @@
 FROM nginx:alpine
+WORKDIR /webapp
 
+COPY ./public /usr/share/nginx/html/
 
-COPY ./index.html /usr/share/nginx/html/
-COPY ./app.js /usr/share/nginx/html/
-COPY ./controlpanel.html /usr/share/nginx/html/
+COPY ./root ./admin
 
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 
