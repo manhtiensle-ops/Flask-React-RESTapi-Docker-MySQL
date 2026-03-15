@@ -13,7 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     msgElement.style.opacity = "0"; // Ẩn thông báo
 
     // Gửi HTTP POST Request tới Backend của bạn qua cổng 5000
-    fetch('http://backend/login', {
+    fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: u, password: p })

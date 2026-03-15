@@ -16,7 +16,7 @@ webapp.config["JWT_SECRET_KEY"] = "manhtien"  # Change this!
 jwt = JWTManager(webapp)
 
 
-api.add_resource(Login,"/login")
+api.add_resource(Login,"/api/login")
 
 
 print(Config.JWT_SECRET_KEY)
