@@ -5,7 +5,7 @@ services:
       - "8080:80"
     develop:
       watch:
-        - action: sync
+        - action: sync+restart
           path: ./frontend
           # Sửa lại target trỏ đúng vào dạ dày của Nginx
           target: /usr/share/nginx/html/
