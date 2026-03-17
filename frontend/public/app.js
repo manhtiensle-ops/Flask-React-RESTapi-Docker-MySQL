@@ -21,7 +21,7 @@ fetch('/api/login', {
         
         const urlParams = new URLSearchParams(window.location.search);
         const nextUrl = urlParams.get('next') || '/';
-        window.location.href = nextUrl; 
+        window.location.replace(nextUrl);
         
     } else {
         console.log("Chưa có Cookie hoặc bị từ chối truy cập. Ở lại trang Login.");
@@ -66,7 +66,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
             // (Bạn có thể thêm logic chuyển hướng trang tại đây)
             const urlParams = new URLSearchParams(window.location.search);
             const nextUrl = urlParams.get('next') || '/';
-            window.location.href = nextUrl; 
+            window.location.replace(nextUrl);
+            alert(`goto ${nextUrl}`)
 
         } else {
             msgElement.style.color = "#ff8a80"; // Màu đỏ sáng cho nền tối
