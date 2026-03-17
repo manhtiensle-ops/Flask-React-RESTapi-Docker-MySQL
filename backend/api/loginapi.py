@@ -12,20 +12,20 @@ class Login(Resource):
         if current_user:
             claims = get_jwt()
             if claims.get("user_agent") == request.headers.get('User-Agent'):
-                return jsonify({
+                return {
                     "status": "success",
                     "user":current_user,
                     "message": f"Bạn đã đăng nhập với tài khoản {current_user}!",
-                    "data": {"gotoURL": "/"}, # Điều hướng thẳng vào trong
+                    "data": {"gotoURL": "/"},
                     "error": []
-                })
+                },200
 
-        return jsonify({
+        return {
             "status": "success",
             "message": "go in /login.",
             "data":{"gotoURL":"login.html"},
             "error":[],
-        })
+        },401
     
 
     def post(self):

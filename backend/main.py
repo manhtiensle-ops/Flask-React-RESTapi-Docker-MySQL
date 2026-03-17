@@ -5,8 +5,8 @@ from mysql.connector import pooling
 from api.loginapi import Login
 from config import Config
 from flask_jwt_extended import JWTManager
-
-
+from api.checkPermissionAPI import checkPermissionAPI
+from api.logoutapi import Logout
 webapp = Flask(__name__)
 
 CORS(webapp)
@@ -14,16 +14,16 @@ api = Api(webapp)
 webapp.config["JWT_SECRET_KEY"] = "manhtien"  # Change this!
 webapp.config['JWT_TOKEN_LOCATION'] = ['cookies']
 # Đổi tên cookie chứa JWT (Mặc định là: access_token_cookie)
-webapp.config['JWT_ACCESS_COOKIE_NAME'] = 'LOGINMPEC'
-webapp.config['JWT_ACCESS_CSRF_COOKIE_NAME'] = 'LoginMPEC'
+webapp.config['JWT_ACCESS_COOKIE_NAME'] = 'login'
+webapp.config['JWT_ACCESS_CSRF_COOKIE_NAME'] = 'login'
 webapp.config['JWT_COOKIE_CSRF_PROTECT'] = False # Tắt yêu cầu check CSRF
 webapp.config['JWT_CSRF_IN_COOKIES'] = False     # Tắt luôn việc đẻ ra cookie csrf_access_token
 jwt = JWTManager(webapp)
 
 
 api.add_resource(Login,"/api/login")
-
-
+api.add_resource(checkPermissionAPI,"/checkPermission")
+api.add_resource(Logout,"/api/logout")
 
 
 
