@@ -36,7 +36,7 @@ services:
     # ports:
     #   - "3306:3306"
     volumes:
-      - ./data/mydata:/var/lib/mysql
+      - ./data/db.sql:/docker-entrypoint-initdb.d/db.sql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
