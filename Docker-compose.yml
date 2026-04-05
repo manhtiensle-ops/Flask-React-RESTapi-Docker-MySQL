@@ -4,28 +4,11 @@ services:
     restart: on-failure
     ports:
       - "8080:80"
-    develop:
-      watch:
-        - action: sync
-          path: ./frontend/public
-          target: /usr/share/nginx/html/
-
-        - action: sync
-          path: ./frontend/root
-          target: ./admin
-
-        - action: sync+restart
-          path: ./frontend/default.conf
-          target: /etc/nginx/conf.d/default.conf
+    
     depends_on:
       - backend
   backend:
     build: ./backend/
-    develop:
-      watch:
-        - action: sync
-          path: ./backend
-          target: /backend
     depends_on:
       - db
   db:
