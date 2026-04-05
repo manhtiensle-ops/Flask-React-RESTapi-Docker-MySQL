@@ -11,13 +11,12 @@ webapp = Flask(__name__)
 
 CORS(webapp)
 api = Api(webapp)
-webapp.config["JWT_SECRET_KEY"] = "manhtien"  # Change this!
+webapp.config["JWT_SECRET_KEY"] = "manhtien" 
 webapp.config['JWT_TOKEN_LOCATION'] = ['cookies']
-# Đổi tên cookie chứa JWT (Mặc định là: access_token_cookie)
 webapp.config['JWT_ACCESS_COOKIE_NAME'] = 'login'
 webapp.config['JWT_ACCESS_CSRF_COOKIE_NAME'] = 'login'
-webapp.config['JWT_COOKIE_CSRF_PROTECT'] = False # Tắt yêu cầu check CSRF
-webapp.config['JWT_CSRF_IN_COOKIES'] = False     # Tắt luôn việc đẻ ra cookie csrf_access_token
+webapp.config['JWT_COOKIE_CSRF_PROTECT'] = False 
+webapp.config['JWT_CSRF_IN_COOKIES'] = False     
 jwt = JWTManager(webapp)
 
 
